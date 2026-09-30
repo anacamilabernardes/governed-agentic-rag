@@ -1,48 +1,81 @@
 # Governed Agentic RAG
 
-> Production-oriented agentic RAG architecture for reliable, evidence-grounded and governable AI systems.
+> A work-in-progress reference architecture for evidence-grounded, evaluated and governable agentic RAG systems.
 
-## Overview
+## Project Status
 
-Governed Agentic RAG is a reference implementation for building LLM-based knowledge systems in environments where answers need to be traceable, evaluated and operationally controlled.
+**Status:** Active development
 
-The project goes beyond basic retrieval-augmented generation by incorporating:
+This repository documents the design and incremental implementation of a governed Agentic RAG system.
 
-- agentic orchestration;
-- structured retrieval;
-- metadata filtering;
-- reranking;
-- source-sufficiency assessment;
-- evidence-grounded generation;
-- citation validation;
-- confidence and abstention controls;
-- human-in-the-loop review;
-- tracing and observability;
-- systematic LLM evaluation.
+The project is intentionally being built in public stages. Architecture, evaluation criteria and governance controls are defined before the full implementation so that design decisions, trade-offs and system evolution remain traceable.
 
-The objective is to demonstrate how an AI system can move from a proof of concept toward a production-oriented architecture with explicit reliability and governance controls.
+### Current Roadmap
+
+- [ ] Define public reference corpus
+- [ ] Define evaluation dataset
+- [ ] Implement baseline RAG
+- [ ] Add intent and risk classification
+- [ ] Add out-of-scope routing
+- [ ] Add metadata-aware retrieval
+- [ ] Add reranking
+- [ ] Implement source-sufficiency gate
+- [ ] Add grounded generation
+- [ ] Add citation validation
+- [ ] Implement explicit abstention path
+- [ ] Implement human-review escalation path
+- [ ] Add LangGraph orchestration
+- [ ] Add structured tracing
+- [ ] Build evaluation suite
+- [ ] Add FastAPI service layer
+- [ ] Add automated tests
+- [ ] Add Docker environment
+- [ ] Add CI/CD
+- [ ] Add operational observability
+- [ ] Publish evaluation results
+- [ ] Publish final architecture case study
 
 ---
 
-## Architecture
+## Problem
+
+Standard RAG systems can produce fluent answers even when retrieval quality is weak, evidence is insufficient or the query requires human accountability.
+
+This project explores how to design a RAG system in which:
+
+- retrieval quality is explicitly evaluated;
+- insufficient evidence leads to abstention;
+- high-risk decisions can require human review;
+- generated claims remain traceable to sources;
+- system behavior is observable;
+- evaluation and governance are part of the architecture rather than post-deployment additions.
+
+---
+
+## Planned Architecture
 
 ```mermaid
 flowchart TD
-    A[User Query] --> B[Task Classification]
+    A[User Query] --> B[Intent & Risk Classification]
 
-    B --> C[Retrieval]
-    C --> D[Metadata Filtering]
-    D --> E[Reranking]
-    E --> F[Source Sufficiency Check]
+    B -->|Out of Scope| C[Abstain]
+    B -->|Human Accountability Required| D[Human Review]
+    B -->|In Scope| E[Retrieval]
 
-    F -->|Sufficient| G[Grounded Generation]
-    F -->|Insufficient| H[Abstain / Request Review]
+    E --> F[Metadata Filtering]
+    F --> G[Reranking]
+    G --> H[Source Sufficiency Gate]
 
-    G --> I[Citation Validation]
-    I --> J[Confidence & Risk Assessment]
+    H -->|Insufficient Evidence| C
+    H -->|Sufficient Evidence| I[Grounded Generation]
 
-    J -->|High Confidence| K[Answer]
-    J -->|Low Confidence| H
-    J -->|High Risk| L[Human Review]
+    I --> J[Citation Validation]
+    J --> K[Confidence & Risk Assessment]
 
-    L --> M[Approved / Revised Answer]
+    K -->|Evidence Valid / Risk Acceptable| L[Answer]
+    K -->|Evidence Insufficient| C
+    K -->|Human Judgment Required| D
+
+    D --> M[Human Decision]
+    M -->|Approve / Revise| N[Reviewed Answer]
+    M -->|Reject| C
