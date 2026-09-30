@@ -207,6 +207,14 @@ Automation should not obscure who owns a high-impact decision, approval or rejec
 
 ## Planned Evaluation Framework
 
+In this repository, human review is simulated. Review-related metrics are computed against expected-routing labels in the evaluation dataset rather than against production reviewer behavior.
+
+Each evaluation example will include an expected terminal route where applicable:
+
+- `answer`
+- `abstain`
+- `human_review`
+
 The evaluation layer will separate system quality into distinct dimensions.
 
 ### Retrieval
@@ -235,18 +243,19 @@ The evaluation layer will separate system quality into distinct dimensions.
 - abstention recall
 - false-answer rate under insufficient evidence
 
-### Human Review
+### Human Review Routing
 
-- escalation rate
-- appropriate-escalation rate
+- human-review routing precision
+- human-review routing recall
 - unnecessary-escalation rate
-- reviewer disagreement rate
+- missed-escalation rate
 
-### Human Rejection
+### Simulated Human Decision
 
-- reviewer rejection rate
-- rejection reason distribution
-- system-confidence distribution for rejected answers
+- expected-route accuracy
+- inappropriate automatic-answer rate
+- inappropriate abstention rate
+- escalation correctness
 
 ### Operations
 
@@ -270,14 +279,16 @@ governed-agentic-rag/
 ├── .env.example
 │
 ├── src/
-│   ├── orchestration/
-│   ├── classification/
-│   ├── retrieval/
-│   ├── generation/
-│   ├── evaluation/
-│   ├── governance/
-│   ├── observability/
-│   └── api/
+│   └── governed_rag/
+│       ├── __init__.py
+│       ├── orchestration/
+│       ├── classification/
+│       ├── retrieval/
+│       ├── generation/
+│       ├── evaluation/
+│       ├── governance/
+│       ├── observability/
+│       └── api/
 │
 ├── tests/
 │   ├── unit/
@@ -294,8 +305,9 @@ governed-agentic-rag/
 │   ├── EVALUATION.md
 │   ├── GOVERNANCE.md
 │   ├── SECURITY.md
-│   ├── DECISIONS.md
 │   └── adr/
+│       ├── README.md
+│       └── 0001-low-confidence-routing.md
 │
 ├── scripts/
 │
@@ -319,13 +331,13 @@ Evaluation dataset design, metrics, baselines, regression testing and acceptance
 
 Risk classification, abstention, human oversight, human rejection, auditability and accountability controls.
 
-### `DECISIONS.md`
-
-Major architectural decisions and trade-offs.
-
 ### `docs/adr/`
 
-Architecture Decision Records documenting consequential technology and design choices as they are made.
+Architecture Decision Records documenting consequential design and technology choices as they are made.
+
+`docs/adr/README.md` will serve as the ADR index.
+
+The first planned ADR will document the decision to route low-confidence outputs to human review rather than immediate abstention after evidence sufficiency has already been established.
 
 ### `SECURITY.md`
 
