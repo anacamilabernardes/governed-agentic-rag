@@ -70,6 +70,9 @@ reviewer receives a full evidence package rather than a bare query. The human de
 
 ## Conventions
 
+- Language: everything committed to the repository is in English: code, comments, docs, ADRs, README,
+  commit messages, PR descriptions and the evaluation dataset. Conversation with the maintainer is in
+  Portuguese.
 - Public or synthetic data only. Tests use synthetic placeholder strings.
 - ADRs in `docs/adr/` are numbered in the order decisions are made. Update the index in
   `docs/adr/README.md`. ADR 0002 (low-confidence routing to human review) is planned.
