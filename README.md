@@ -19,7 +19,7 @@ Each component ships with unit tests and is evaluated against the baseline befor
 ### Phase 0 — Foundations
 
 - [x] Repository structure, Python tooling and CI
-- [ ] Define public reference corpus
+- [x] Define public reference corpus ([ADR 0001](docs/adr/0001-public-reference-corpus.md))
 - [x] LangGraph skeleton with typed state
 
 ### Phase 1 — Baseline and Evaluation
@@ -298,6 +298,8 @@ governed-agentic-rag/
 ├── configs/
 │
 ├── data/
+│   ├── corpus/
+│   │   └── manifest.toml
 │   └── sample/
 │
 ├── docs/
@@ -307,7 +309,8 @@ governed-agentic-rag/
 │   ├── SECURITY.md
 │   └── adr/
 │       ├── README.md
-│       └── 0001-low-confidence-routing.md
+│       ├── 0001-public-reference-corpus.md
+│       └── 0002-low-confidence-routing.md
 │
 ├── scripts/
 │
@@ -335,9 +338,11 @@ Risk classification, abstention, human oversight, human rejection, auditability 
 
 Architecture Decision Records documenting consequential design and technology choices as they are made.
 
-`docs/adr/README.md` will serve as the ADR index.
+`docs/adr/README.md` is the ADR index. ADRs are numbered in the order decisions are made.
 
-The first planned ADR will document the decision to route low-confidence outputs to human review rather than immediate abstention after evidence sufficiency has already been established.
+ADR 0001 records the choice of public reference corpus (NIST AI RMF 1.0 and the Generative AI Profile), including license and attribution.
+
+ADR 0002 will document the decision to route low-confidence outputs to human review rather than immediate abstention after evidence sufficiency has already been established.
 
 ### `SECURITY.md`
 
