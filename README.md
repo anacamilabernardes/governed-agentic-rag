@@ -18,9 +18,9 @@ Each component ships with unit tests and is evaluated against the baseline befor
 
 ### Phase 0 — Foundations
 
-- [ ] Repository structure, Python tooling and CI
+- [x] Repository structure, Python tooling and CI
 - [ ] Define public reference corpus
-- [ ] LangGraph skeleton with typed state
+- [x] LangGraph skeleton with typed state
 
 ### Phase 1 — Baseline and Evaluation
 
