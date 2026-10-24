@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Reference corpus files (downloaded by scripts/download_corpus.py)
+data/corpus/raw/
