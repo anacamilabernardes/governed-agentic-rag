@@ -11,6 +11,7 @@ requires-python = ">=3.12,<3.13"
 authors = [{ name = "Ana Camila Bernardes" }]
 dependencies = [
     "langgraph>=1.0,<2",
+    "pydantic>=2.7,<3",
 ]
 
 [dependency-groups]
