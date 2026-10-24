@@ -175,6 +175,7 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
+    { name = "truststore" },
 ]
 
 [package.metadata]
@@ -189,6 +190,7 @@ dev = [
     { name = "pytest", specifier = ">=8.0" },
     { name = "pytest-cov", specifier = ">=5.0" },
     { name = "ruff", specifier = ">=0.6" },
+    { name = "truststore", specifier = ">=0.9" },
 ]
 
 [[package]]
